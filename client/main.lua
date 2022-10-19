@@ -1,12 +1,10 @@
---1 for each event
 RegisterNetEvent("gilded_useitems:harvest")
 RegisterNetEvent("gilded_useitems:harvest2")
 RegisterNetEvent("gilded_useitems:harvest3")
 
---First item to open
 AddEventHandler("gilded_useitems:harvest", function()
 	local playerPed = PlayerPedId()
-	local dict, anim = "mech_skin@chicken@field_dress", "success"
+	local dict, anim = "mech_inventory@item@_templates@cylinder@d6-5_h1-5_inspectz@unarmed@base", "inspect_sweep_extents"--"mech_skin@chicken@field_dress", "success"
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
 		Wait(0)
@@ -19,10 +17,9 @@ AddEventHandler("gilded_useitems:harvest", function()
 	TriggerServerEvent("gilded_useitems:harvest")
 end)
 
---Second item to open
 AddEventHandler("gilded_useitems:harvest2", function()
 	local playerPed = PlayerPedId()
-	local dict, anim = "mech_skin@chicken@field_dress", "success"
+	local dict, anim = "mech_inventory@item@_templates@cylinder@d6-5_h1-5_inspectz@unarmed@base", "inspect_sweep_extents"--"mech_skin@chicken@field_dress", "success"
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
 		Wait(0)
@@ -35,10 +32,9 @@ AddEventHandler("gilded_useitems:harvest2", function()
 	TriggerServerEvent("gilded_useitems:harvest2")
 end)
 
---Third item to open
 AddEventHandler("gilded_useitems:harvest3", function()
 	local playerPed = PlayerPedId()
-	local dict, anim = "mech_skin@chicken@field_dress", "success"
+	local dict, anim = "mech_inventory@item@_templates@cylinder@d6-5_h1-5_inspectz@unarmed@base", "inspect_sweep_extents" --"mech_skin@chicken@field_dress", "success"
 	RequestAnimDict(dict)
 	while not HasAnimDictLoaded(dict) do
 		Wait(0)
