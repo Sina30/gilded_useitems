@@ -1,9 +1,9 @@
-local VORP_INV = exports.vorp_inventory:vorp_inventoryApi()
-
 RegisterServerEvent("gilded_useitems:harvest")
 RegisterServerEvent("gilded_useitems:harvest2")
 RegisterServerEvent("gilded_useitems:harvest3")
---Dont need to touch to add new items
+
+local VORP_INV = exports.vorp_inventory:vorp_inventoryApi()
+
 local function InventoryCheck(_source, item, count)
 	local itemsAvailable = true
 	local done = false
@@ -17,19 +17,16 @@ local function InventoryCheck(_source, item, count)
 		Wait(500)
 	end
 	if not itemsAvailable then
-		-- Carrying too many of item already.
 		TriggerClientEvent("vorp:TipRight", _source, _U("inv_nospace"), 5000)
 		return false
 	end
 	if not VORP_INV.canCarryItems(_source, count) then
-		-- Not enough space available in inventory.
 		TriggerClientEvent("vorp:TipRight", _source, _U("inv_nospace"), 5000)
 		return false
 	end
 	return true
 end
 
---First item to open
 local harvesting = {}
 AddEventHandler("gilded_useitems:harvest", function()
 	local _source = source
@@ -40,7 +37,6 @@ AddEventHandler("gilded_useitems:harvest", function()
 	harvesting[_source] = nil
 end)
 
---Second item to open
 local harvesting2 = {}
 AddEventHandler("gilded_useitems:harvest2", function()
 	local _source = source
@@ -51,7 +47,6 @@ AddEventHandler("gilded_useitems:harvest2", function()
 	harvesting2[_source] = nil
 end)
 
---Third item to open
 local harvesting3 = {}
 AddEventHandler("gilded_useitems:harvest3", function()
 	local _source = source
@@ -62,8 +57,6 @@ AddEventHandler("gilded_useitems:harvest3", function()
 		harvesting3[_source] = nil
 end)
 
-
--- First item to open below
 if not Config.OpenItem then
 	VORP_INV.RegisterUsableItem(Config.StartItemName1, function(data)
 		if harvesting[data.source] then return end
@@ -82,11 +75,9 @@ if not Config.OpenItem then
 		TriggerClientEvent("gilded_useitems:harvest", data.source)
 	end)
 end
-
--- Second item to open below
 if not Config.OpenItem then
 	VORP_INV.RegisterUsableItem(Config.StartItemName2, function(data)
-		if harvesting[data.source] then return end
+		if harvesting2[data.source] then return end
 		local count
 		if type(Config.ItemAmount2) == "table" then
 			count = math.random(Config.ItemAmount2[1], Config.ItemAmount2[2])
@@ -98,14 +89,13 @@ if not Config.OpenItem then
 			VORP_INV.addItem(data.source, Config.StartItemName2, 1)
 			return
 		end
-		harvesting[data.source] = count
+		harvesting2[data.source] = count
 		TriggerClientEvent("gilded_useitems:harvest2", data.source)
 	end)
 end
---third item to open below
 if not Config.OpenItem then
 	VORP_INV.RegisterUsableItem(Config.StartItemName3, function(data)
-		if harvesting2[data.source] then return end
+		if harvesting3[data.source] then return end
 		local count
 		if type(Config.ItemAmount3) == "table" then
 			count = math.random(Config.ItemAmount3[1], Config.ItemAmount3[2])
@@ -117,7 +107,7 @@ if not Config.OpenItem then
 			VORP_INV.addItem(data.source, Config.StartItemName3, 1)
 			return
 		end
-		harvesting2[data.source] = count
+		harvesting3[data.source] = count
 		TriggerClientEvent("gilded_useitems:harvest3", data.source)
 	end)
 end
