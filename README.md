@@ -1,4 +1,4 @@
-# RedM resource for VORP framework. The Best Framework.
+# RedM resource for VORP framework.
 
 - This script allows you to open items in your inventory to give you something else
 
@@ -19,7 +19,7 @@
 - Extract .zip contents and place the gilded_useitems folder in your server's resources folder.
 - Add `ensure gilded_useitems` to your server.cfg file *after* `ensure vorp_core` and `ensure vorp_inventory`.
 
-# Code mainly used from @adamdrakon
+
 The amazing script VORP_crawfish is where this script was inspired from. https://github.com/adamdrakon
 
 

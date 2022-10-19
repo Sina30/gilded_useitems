@@ -2,7 +2,7 @@ local VORP_INV = exports.vorp_inventory:vorp_inventoryApi()
 
 RegisterServerEvent("gilded_useitems:harvest")
 RegisterServerEvent("gilded_useitems:harvest2")
-
+RegisterServerEvent("gilded_useitems:harvest3")
 --Dont need to touch to add new items
 local function InventoryCheck(_source, item, count)
 	local itemsAvailable = true
@@ -51,6 +51,17 @@ AddEventHandler("gilded_useitems:harvest2", function()
 	harvesting2[_source] = nil
 end)
 
+--Third item to open
+local harvesting3 = {}
+AddEventHandler("gilded_useitems:harvest3", function()
+	local _source = source
+	if not harvesting3[_source] then return end
+	VORP_INV.addItem(_source, Config.EndItemName3, harvesting3[_source])
+	TriggerClientEvent("vorp:TipRight", _source, _UP("Opened", { count = harvesting3[_source], item = Config.EndItemLabel3 }),
+		5000)
+		harvesting3[_source] = nil
+end)
+
 
 -- First item to open below
 if not Config.OpenItem then
@@ -72,10 +83,10 @@ if not Config.OpenItem then
 	end)
 end
 
---Second item to open below
+-- Second item to open below
 if not Config.OpenItem then
 	VORP_INV.RegisterUsableItem(Config.StartItemName2, function(data)
-		if harvesting2[data.source] then return end
+		if harvesting[data.source] then return end
 		local count
 		if type(Config.ItemAmount2) == "table" then
 			count = math.random(Config.ItemAmount2[1], Config.ItemAmount2[2])
@@ -87,7 +98,28 @@ if not Config.OpenItem then
 			VORP_INV.addItem(data.source, Config.StartItemName2, 1)
 			return
 		end
-		harvesting2[data.source] = count
+		harvesting[data.source] = count
 		TriggerClientEvent("gilded_useitems:harvest2", data.source)
 	end)
 end
+--third item to open below
+if not Config.OpenItem then
+	VORP_INV.RegisterUsableItem(Config.StartItemName3, function(data)
+		if harvesting2[data.source] then return end
+		local count
+		if type(Config.ItemAmount3) == "table" then
+			count = math.random(Config.ItemAmount3[1], Config.ItemAmount3[2])
+		else
+			count = Config.ItemAmount3
+		end
+		VORP_INV.subItem(data.source, Config.StartItemName3, 1)
+		if not InventoryCheck(data.source, Config.EndItemName3, count) then
+			VORP_INV.addItem(data.source, Config.StartItemName3, 1)
+			return
+		end
+		harvesting2[data.source] = count
+		TriggerClientEvent("gilded_useitems:harvest3", data.source)
+	end)
+end
+
+
