@@ -1,12 +1,12 @@
 Locales["de"] = {
-	inv_nospace = "Not enough space in your inventory!",
+	inv_nospace = "Nicht genug Platz in deinem Inventar!",
 
-	Opening = "Opening It Up",
-	Opened = "You Opened {count} x {item}",
+	Opening = "Öffnen es",
+	Opened = "Du hast {count} x {item} bekommen",
 
-	startitem_1 = "Cigarette Carton",
-	enditem_1 = "Cigarette",
+	startitem_1 = "Zigarettenkarton",
+	enditem_1 = "Zigarette",
 
-	startitem_2 = "Cigarette Carton",
-	enditem_2 = "Cigarette"
+	startitem_2 = "Zigarettenkarton",
+	enditem_2 = "Zigarette"
 }
